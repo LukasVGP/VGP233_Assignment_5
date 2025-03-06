@@ -3,18 +3,10 @@ using UnityEngine;
 public class MugBehavior : MonoBehaviour
 {
     private Transform handPosition;
-    private Collider mugCollider;
 
     void Start()
     {
-        mugCollider = GetComponent<Collider>();
-        mugCollider.isTrigger = true;
-        DisableAllPhysics();
-    }
-
-    void DisableAllPhysics()
-    {
-        Destroy(GetComponent<Rigidbody>());
+        GetComponent<Collider>().isTrigger = true;
     }
 
     void LateUpdate()
@@ -32,6 +24,8 @@ public class MugBehavior : MonoBehaviour
         {
             handPosition = GameObject.FindGameObjectWithTag("Player").transform.Find("HandPosition");
             transform.parent = handPosition;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
         }
         else
         {
@@ -43,8 +37,7 @@ public class MugBehavior : MonoBehaviour
     public void StartSliding(Vector3 direction, float speed)
     {
         SetHeld(false);
-        gameObject.AddComponent<Rigidbody>();
-        Rigidbody rb = GetComponent<Rigidbody>();
+        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = false;
         rb.linearVelocity = direction * speed;
     }
