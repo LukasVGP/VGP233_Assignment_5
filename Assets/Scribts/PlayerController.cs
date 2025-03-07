@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mugPrefab;
     public Transform handPosition;
     public float interactionDistance = 2f;
-    public float slidingSpeed = 10f;
+    public float slidingSpeed = 20f;
 
     private GameObject heldMug;
     private Rigidbody rb;
@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
-        Debug.Log("PlayerController initialized");
     }
 
     void Update()
@@ -57,13 +56,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("E key pressed");
             TryGetMug();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Space key pressed");
             TryServeMug();
         }
 
@@ -76,28 +73,17 @@ public class PlayerController : MonoBehaviour
 
     void TryGetMug()
     {
-        Debug.Log("TryGetMug called");
-        Debug.Log($"Player position: {transform.position}");
-        Debug.Log($"Interaction distance: {interactionDistance}");
-
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionDistance);
-        Debug.Log($"Found {hitColliders.Length} colliders in range");
-
         foreach (var hitCollider in hitColliders)
         {
-            Debug.Log($"Checking collider: {hitCollider.gameObject.name} with tag: {hitCollider.tag}");
             if (hitCollider.CompareTag("Barrel") && !hasMug)
             {
-                Debug.Log("Found barrel, spawning mug");
                 heldMug = Instantiate(mugPrefab, handPosition.position, handPosition.rotation);
-                Debug.Log($"Mug spawned at position: {heldMug.transform.position}");
-
                 MugBehavior mugBehavior = heldMug.GetComponent<MugBehavior>();
                 mugBehavior.SetHeld(true);
                 heldMug.transform.parent = handPosition;
                 Physics.IgnoreCollision(heldMug.GetComponent<Collider>(), GetComponent<Collider>(), true);
                 hasMug = true;
-                Debug.Log("Mug successfully attached to player");
                 break;
             }
         }
@@ -105,40 +91,36 @@ public class PlayerController : MonoBehaviour
 
     void TryServeMug()
     {
-        if (!hasMug || heldMug == null)
-        {
-            Debug.Log("No mug to serve");
-            return;
-        }
+        if (!hasMug || heldMug == null) return;
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionDistance);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Table"))
             {
-                Debug.Log("Found table, starting slide");
-                StartSliding();
+                StartSliding(hitCollider);
                 break;
             }
         }
     }
 
-    void StartSliding()
+    void StartSliding(Collider tableCollider)
     {
-        Debug.Log("StartSliding called");
         heldMug.transform.parent = null;
         Rigidbody mugRb = heldMug.GetComponent<Rigidbody>();
         mugRb.isKinematic = false;
 
-        float tableHeight = GameObject.FindGameObjectWithTag("Table").transform.position.y + 0.5f;
-        heldMug.transform.position = new Vector3(heldMug.transform.position.x, tableHeight, heldMug.transform.position.z);
+        Table table = tableCollider.GetComponent<Table>();
+        Vector3 slideStart = table.GetSlideStartPosition();
+        Vector3 slideDirection = table.GetSlideDirection();
 
-        mugRb.linearVelocity = currentDirection * slidingSpeed;
+        heldMug.transform.position = slideStart;
+        mugRb.linearVelocity = slideDirection * slidingSpeed;
+        mugRb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
         mugRb.useGravity = false;
 
         hasMug = false;
         heldMug = null;
-        Debug.Log("Mug sliding initiated");
     }
 
     public Vector3 GetCurrentDirection()

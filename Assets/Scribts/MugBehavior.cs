@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MugBehavior : MonoBehaviour
 {
+    [Header("Sliding Settings")]
+    public float slidingSpeed = 20f;
+
     private Transform handPosition;
 
     void Start()
@@ -39,7 +42,7 @@ public class MugBehavior : MonoBehaviour
         SetHeld(false);
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = false;
-        rb.linearVelocity = direction * speed;
+        rb.linearVelocity = direction * slidingSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
