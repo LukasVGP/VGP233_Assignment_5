@@ -31,7 +31,7 @@ public class Table : MonoBehaviour
         this.customerWaitTime = waitTime;
 
         spawnTimer = 0f;
-        isActive = GameManager.Instance.IsTableActive(this);
+        isActive = true;
     }
 
     public void SetActive(bool active)
@@ -39,9 +39,27 @@ public class Table : MonoBehaviour
         isActive = active;
     }
 
+    public void UpdateSpawnInterval(float newInterval)
+    {
+        spawnInterval = newInterval;
+    }
+
+    public bool CanAcceptCustomer()
+    {
+        return isActive && currentCustomers < maxCustomers;
+    }
+
+    public void ForceSpawnCustomer()
+    {
+        if (CanAcceptCustomer())
+        {
+            SpawnCustomer();
+        }
+    }
+
     void Update()
     {
-        if (isActive)
+        if (isActive && GameManager.Instance.ShouldSpawnAtTable(this))
         {
             HandleCustomerSpawning();
         }
