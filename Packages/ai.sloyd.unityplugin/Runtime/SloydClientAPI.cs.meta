@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 897ebe67206d4d58825f2e77b52c3636
+timeCreated: 1731502796
+AssetOrigin:
+  serializedVersion: 1
+  productId: 258591
+  packageName: 3D creation with AI
+  packageVersion: 1.0.1
+  assetPath: Packages/ai.sloyd.unityplugin/Runtime/SloydClientAPI.cs
+  uploadId: 719132

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0307013680f89410a878bb6ab1f410e6
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 258591
+  packageName: 3D creation with AI
+  packageVersion: 1.0.1
+  assetPath: Packages/ai.sloyd.unityplugin/Runtime/Sloyd.UnityPlugin.Runtime.asmdef
+  uploadId: 719132

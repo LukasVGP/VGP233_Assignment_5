@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e7c236ba76bcc4cee805445d56345809
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 258591
+  packageName: 3D creation with AI
+  packageVersion: 1.0.1
+  assetPath: Packages/ai.sloyd.unityplugin/CHANGELOG.md
+  uploadId: 719132

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5b2d1e5d6453b4475b5fde5961c28926
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 258591
+  packageName: 3D creation with AI
+  packageVersion: 1.0.1
+  assetPath: Packages/ai.sloyd.unityplugin/Editor/Sloyd.UnityPlugin.Editor.asmdef
+  uploadId: 719132

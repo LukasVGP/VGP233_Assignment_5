@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c5aa86ef67eb4cb2afc88f341cbc299d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 258591
+  packageName: 3D creation with AI
+  packageVersion: 1.0.1
+  assetPath: Packages/ai.sloyd.unityplugin/Runtime/AutoPlacementUtility.cs
+  uploadId: 719132
