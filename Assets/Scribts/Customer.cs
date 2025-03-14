@@ -83,12 +83,20 @@ public class Customer : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
 
+            // Debug log to check movement
+            Debug.Log("Moving towards endpoint: " + targetPosition);
+
             // Check if we've reached the end point
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
                 isAtEndPoint = true;
                 waitTimer = 0f;
+                Debug.Log("Reached endpoint");
             }
+        }
+        else
+        {
+            Debug.Log("Cannot move, customer ahead");
         }
     }
 
